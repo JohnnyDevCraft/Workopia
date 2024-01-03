@@ -1,7 +1,19 @@
 <?php
 
 require_once '../helpers.php';
-require basePath('views/home.view.php');
+require_once basePath('Router.php');
+
+$router = new Router();
+
+$routes = require basePath('routes.php');
+
+
+$uri = $_SERVER['REQUEST_URI'];
+$method = $_SERVER['REQUEST_METHOD'];
+
+$router->Route($uri, $method);
+
+
 
 
 
