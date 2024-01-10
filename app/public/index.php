@@ -1,17 +1,19 @@
 <?php
 
+require_once __DIR__ . '/../vendor/autoload.php';
 require_once '../helpers.php';
-require_once basePath('Router.php');
+
+use Framework\Router;
+
 
 $router = new Router();
 
 $routes = require basePath('routes.php');
 
 
-$uri = $_SERVER['REQUEST_URI'];
-$method = $_SERVER['REQUEST_METHOD'];
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-$router->Route($uri, $method);
+$router->Route($uri);
 
 
 

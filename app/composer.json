@@ -1,0 +1,21 @@
+{
+  "name": "johnnydevcraft/workopia",
+  "description": "Framework Building Application for Testing",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Johnathon Smith",
+      "email": "jd49490@me.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Framework\\" : "Framework/",
+      "App\\": "App/"
+    }
+  },
+  "require": {
+    "ext-pdo": "*"
+  }
+}

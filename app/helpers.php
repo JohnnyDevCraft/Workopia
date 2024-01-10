@@ -17,10 +17,11 @@ function basePath($path = '')
  * @param string $name
  * @return void
  */
-function loadView($name)
+function loadView($name, $data = [])
 {
-    $viewPath = basePath("views/{$name}.view.php");
+    $viewPath = basePath("App/views/{$name}.view.php");
     if (file_exists($viewPath)){
+        extract($data);
         require $viewPath;
     } else {
         echo "View {$name} not found";
@@ -34,13 +35,14 @@ function loadView($name)
  * @return void
  *
  */
-function loadPartial($name){
-    $viewPath =  basePath("views/partials/{$name}.partial.php");
+function loadPartial($name, $data = []){
+    $viewPath =  basePath("App/views/partials/{$name}.partial.php");
 
     if(file_exists($viewPath)){
+        extract($data);
         require $viewPath;
     } else {
-        echo "Partial {$name} not found";
+        echo "<pre>Partial {$name} not found</pre>";
     }
 }
 
@@ -63,10 +65,54 @@ function inspect($value){
  * @return void
  */
 function inspectAndDie($value){
-    echo '<pre>';
-    die(var_dump($value));
-    echo '</pre>';
+    preWrapCallback(die(var_dump($value)));
+}
+
+/**
+ * Formats a string as currency.
+ *
+ * @param $salary
+ * @return string
+ */
+function formatSalary($salary)
+{
+    return '$' . number_format(floatval($salary));
 }
 
 
+/**
+ * Loads a layout that then loads a view.
+ *
+ * @param $layout - Name of layout to load
+ * @return void
+ */
+function loadLayoutAndView($layout){
+    $layoutPath = basePath("App/views/layouts/{$layout}.layout.php");
+    if (file_exists($layoutPath)){
+        require $layoutPath;
+    } else {
+        echo "Layout {$layout} not found";
+    }
+}
 
+
+function preWrap($data){
+    echo "<pre>{$data}</pre>";
+}
+
+
+function preWrapCallback($function){
+    echo "<pre>";
+    $function();
+    echo "</pre>";
+}
+
+/**
+ * Used to sanitize the data of a request
+ *
+ * @param $dirty
+ * @return mixed
+ */
+function sanitizeData($dirty){
+    return filter_var(trim($dirty), FILTER_SANITIZE_SPECIAL_CHARS);
+}
