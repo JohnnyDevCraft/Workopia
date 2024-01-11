@@ -4,7 +4,9 @@ require_once __DIR__ . '/../vendor/autoload.php';
 require_once '../helpers.php';
 
 use Framework\Router;
+use Framework\Session;
 
+Session::Start();
 
 $router = new Router();
 

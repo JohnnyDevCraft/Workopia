@@ -12,7 +12,7 @@ class Validation
      * @param int $max
      * @return bool
      */
-    public static function String($value, int $min = 1, int $max = INF)
+    public static function String($value, int $min = 1, int $max = 5000)
     {
         if(is_string($value)){
             $value = trim($value);

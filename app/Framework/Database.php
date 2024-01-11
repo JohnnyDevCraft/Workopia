@@ -52,4 +52,23 @@ class Database {
             throw new Exception("Query failed to execute: {$e->getMessage()}");
         }
     }
+
+    public function Insert($data, $table) {
+        $fields = [];
+        $values = [];
+        foreach ($data as $field => $value){
+            $fields[] = $field;
+            if($value === ''){
+                $data[$field] = null;
+            }
+
+            $values[] = ':' . $field;
+        }
+
+        $fields = implode(', ', $fields);
+        $values = implode(', ', $values);
+
+        $query = "INSERT INTO {$table} ({$fields}) VALUES ({$values});";
+        $this->Query($query, $data);
+    }
 }

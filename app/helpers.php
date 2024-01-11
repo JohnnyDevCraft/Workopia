@@ -116,3 +116,14 @@ function preWrapCallback($function){
 function sanitizeData($dirty){
     return filter_var(trim($dirty), FILTER_SANITIZE_SPECIAL_CHARS);
 }
+
+/**
+ * Redirect user to route
+ *
+ * @param string $url
+ * @return void
+ */
+function redirect(string $url){
+    header("Location: {$url}");
+    exit;
+}
